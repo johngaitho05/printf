@@ -55,13 +55,13 @@ int print_pointer(va_list types, char buffer[],
 /************************* PRINT NON PRINTABLE *************************/
 /**
  * print_non_printable - Prints ascii codes in hexa of non printable chars
- * @types: Lista of arguments
+ * @types: List of arguments
  * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
+ * @flags:  Calculate active flags
  * @width: get width
  * @precision: Precision specification
  * @size: Size specifier
- * Return: Number of chars printed
+ * Return: Number of chars to print
  */
 int print_non_printable(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -90,4 +90,47 @@ int print_non_printable(va_list types, char buffer[],
 	buffer[i + offset] = '\0';
 
 	return (write(1, buffer, i + offset));
+}
+
+/**
+ * print_reverse - Prints reverse string.
+ * @types: List of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculate active flags
+ * @width: get width
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Numbers of chars to be printed
+ */
+
+int print_reverse(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
+{
+	char *str;
+	int i, count = 0;
+
+	UNUSED(buffer);
+	UNUSED(flags);
+	UNUSED(width);
+	UNUSED(size);
+
+	str = va_arg(types, char *);
+
+	if (str == NULL)
+	{
+		UNUSED(precision);
+
+		str = ")Null(";
+	}
+	for (i = 0; str[i]; i++)
+		;
+
+	for (i = i - 1; i >= 0; i--)
+	{
+		char z = str[i];
+
+		write(1, &z, 1);
+		count++;
+	}
+	return (count);
 }
